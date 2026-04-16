@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Report Card System</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f6f9;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 400px;
+            margin: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 6px;
+        }
+
+        input {
+            width: 90%;
+            padding: 6px;
+        }
+
+        button {
+            padding: 8px 12px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            background: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        #reportCard {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Student Report Card System</h2>
+
+    <input type="text" id="name" placeholder="Student Name"><br><br>
+
+    Enter Max Marks per Subject:
+    <input type="number" id="max" value="100"><br><br>
+
+    <table>
+        <tr><td>Maths</td><td><input type="number" id="maths"></td></tr>
+        <tr><td>Physics</td><td><input type="number" id="physics"></td></tr>
+        <tr><td>Chemistry</td><td><input type="number" id="chemistry"></td></tr>
+        <tr><td>English</td><td><input type="number" id="english"></td></tr>
+        <tr><td>Computer</td><td><input type="number" id="computer"></td></tr>
+    </table>
+
+    <br>
+
+    <button onclick="calculate()">Generate Report</button>
+    <button onclick="resetFields()">Reset</button>
+
+    <div id="reportCard"></div>
+
+</div>
+
+<script>
+
+function calculate() {
+
+    var name = document.getElementById("name").value;
+
+    var maths = Number(document.getElementById("maths").value);
+    var physics = Number(document.getElementById("physics").value);
+    var chemistry = Number(document.getElementById("chemistry").value);
+    var english = Number(document.getElementById("english").value);
+    var computer = Number(document.getElementById("computer").value);
+
+    var maxMarks = Number(document.getElementById("max").value) * 5;
+
+    var total = maths + physics + chemistry + english + computer;
+    var percentage = (total / maxMarks) * 100;
+
+    var grade = "";
+
+    if (percentage >= 90) {
+        grade = "A+";
+    } else if (percentage >= 75) {
+        grade = "A";
+    } else if (percentage >= 60) {
+        grade = "B";
+    } else if (percentage >= 50) {
+        grade = "C";
+    } else {
+        grade = "Fail";
+    }
+
+    var status = (percentage >= 50) ? "PASS 🎉" : "FAIL ❌";
+
+    document.getElementById("reportCard").innerHTML =
+        "<h3>📘 Report Card</h3>" +
+        "<hr>" +
+        "<b>Student:</b> " + name + "<br><br>" +
+
+        "<b>Marks Breakdown:</b><br>" +
+        "Maths: " + maths + "<br>" +
+        "Physics: " + physics + "<br>" +
+        "Chemistry: " + chemistry + "<br>" +
+        "English: " + english + "<br>" +
+        "Computer: " + computer + "<br><br>" +
+
+        "<hr>" +
+        "<b>Total:</b> " + total + "<br>" +
+        "<b>Percentage:</b> " + percentage.toFixed(2) + "%<br>" +
+        "<b>Grade:</b> " + grade + "<br>" +
+        "<b>Status:</b> " + status;
+}
+
+function resetFields() {
+    document.getElementById("name").value = "";
+    document.getElementById("maths").value = "";
+    document.getElementById("physics").value = "";
+    document.getElementById("chemistry").value = "";
+    document.getElementById("english").value = "";
+    document.getElementById("computer").value = "";
+    document.getElementById("reportCard").innerHTML = "";
+}
+
+</script>
+
+</body>
+</html>
